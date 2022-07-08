@@ -25,8 +25,8 @@ export type AppTheme = {
 
 export const lightAppTheme: AppTheme = {
   colors: {
-    primary: Platform.OS === 'ios' ? '#aaaaaa' : '#ffffff',
-    primaryDark: Platform.OS === 'ios' ? '#757575' : '#f1f1f1',
+    primary: Platform.OS === 'ios' ? '#F8F8F8' : '#ffffff',
+    primaryDark: Platform.OS === 'ios' ? '#ECECEC' : '#f1f1f1',
     onPrimary: '#212121',
     secondary: '#c3dbee',
     secondaryDark: '#97c3e5',

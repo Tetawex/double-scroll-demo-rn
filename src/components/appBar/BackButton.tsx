@@ -1,8 +1,14 @@
 import {AppTheme, useThemedStyles} from '@theme';
 import React from 'react';
-import {StyleProp, TouchableOpacity, Image, ImageStyle} from 'react-native';
+import {
+  StyleProp,
+  TouchableOpacity,
+  Image,
+  ImageStyle,
+  Platform,
+} from 'react-native';
 
-type Props = {style?: StyleProp<ImageStyle>; onPress: () => void};
+type Props = {style?: StyleProp<ImageStyle>; onPress?: () => void};
 
 const _BackButton = ({style, onPress}: Props): React.ReactElement => {
   const styles = useThemedStyles(styleFn);
@@ -11,7 +17,11 @@ const _BackButton = ({style, onPress}: Props): React.ReactElement => {
     <TouchableOpacity onPress={onPress}>
       <Image
         style={[styles.icon, style]}
-        source={require('@assets/icons/arrow_back_android.png')}
+        source={
+          Platform.OS === 'ios'
+            ? require('@assets/icons/arrow_back_ios.png')
+            : require('@assets/icons/arrow_back_android.png')
+        }
       />
     </TouchableOpacity>
   );
