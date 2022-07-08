@@ -1,9 +1,8 @@
-import { AppTheme, useThemedStyles } from '@theme';
+import {AppTheme, useThemedStyles} from '@theme';
 import React from 'react';
 import {
   ImageStyle,
   Platform,
-  SafeAreaView,
   StatusBar,
   StatusBarStyle,
   StyleProp,
@@ -12,7 +11,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { BackButton } from './BackButton';
+import {BackButton} from './BackButton';
 
 type Props = {
   style?: StyleProp<ViewStyle>;
@@ -46,13 +45,15 @@ const AndroidAppBar = ({
         backgroundColor={styles.statusBar.color}
         barStyle={styles.statusBar.barStyle}
       />
-      <BackButton style={styles.backButton} onPress={onBackPress} />
+      {onBackPress && (
+        <BackButton style={styles.backButton} onPress={onBackPress} />
+      )}
       <Text style={styles.title}>{title}</Text>
     </View>
   );
 };
 
-const IosAppBar = ({ style, title, onBackPress }: Props): React.ReactElement => {
+const IosAppBar = ({style, title, onBackPress}: Props): React.ReactElement => {
   const styles = useThemedStyles(styleFnIos);
 
   return (
@@ -60,7 +61,9 @@ const IosAppBar = ({ style, title, onBackPress }: Props): React.ReactElement => 
       <View style={[styles.container, style]}>
         <View style={styles.horizontalContainer}>
           <View style={styles.leftContainer}>
-            <BackButton style={styles.backButton} onPress={onBackPress} />
+            {onBackPress && (
+              <BackButton style={styles.backButton} onPress={onBackPress} />
+            )}
           </View>
           <Text style={styles.title}>{title}</Text>
           <View style={styles.rightContainer} />
@@ -76,7 +79,7 @@ const styleFnAndroid = (theme: AppTheme) => ({
     ...theme.typography.appBar,
     color: theme.colors.onBackground,
   } as TextStyle,
-  backButton: { marginRight: 12 } as ImageStyle,
+  backButton: {marginRight: 12} as ImageStyle,
   container: {
     flexDirection: 'row',
     backgroundColor: theme.colors.primary,
@@ -99,11 +102,10 @@ const styleFnIos = (theme: AppTheme) => ({
     marginHorizontal: 10,
     marginBottom: 14,
   } as TextStyle,
-  backButton: { marginStart:4, marginBottom: 12} as ImageStyle,
+  backButton: {marginStart: 4, marginBottom: 12} as ImageStyle,
   container: {
     minHeight: 56 + 44,
     backgroundColor: theme.colors.primary,
-    paddingHorizontal: 16,
     padddingTop: 44,
     alignItems: 'center',
     justifyContent: 'center',
@@ -114,6 +116,7 @@ const styleFnIos = (theme: AppTheme) => ({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-end',
+    paddingHorizontal: 16,
   } as ViewStyle,
   statusBar: {
     barStyle: 'dark-content' as StatusBarStyle,
@@ -123,6 +126,16 @@ const styleFnIos = (theme: AppTheme) => ({
     backgroundColor: theme.colors.primaryDark,
     height: 1,
   } as ViewStyle,
-  leftContainer: { flex: 1, alignSelf: 'stretch', justifyContent: 'flex-end', alignItems: 'flex-start' } as ViewStyle,
-  rightContainer: { flex: 1, alignSelf: 'stretch', justifyContent: 'flex-end', alignItems: 'flex-end' } as ViewStyle,
+  leftContainer: {
+    flex: 1,
+    alignSelf: 'stretch',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
+  } as ViewStyle,
+  rightContainer: {
+    flex: 1,
+    alignSelf: 'stretch',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  } as ViewStyle,
 });
