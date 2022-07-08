@@ -57,7 +57,6 @@ const _FixedSizeListFn = <T,>(
         offset: (itemSize + itemSpacing) * index,
         index,
       })}
-      scrollEventThrottle={8}
       snapToInterval={itemSize + itemSpacing}
       data={data}
       ItemSeparatorComponent={ItemSeparatorComponent}

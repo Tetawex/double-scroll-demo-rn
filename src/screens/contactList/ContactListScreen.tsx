@@ -21,6 +21,8 @@ import {FixedSizeList} from '@components/fixedSizeList';
 import {AppTheme, useThemedStyles} from '@theme';
 import {useSyncScrollables} from './useSyncScrollables';
 
+const SCROLL_EVENT_THROTTLE = 8;
+
 const extractIdKey = ({id}: {id: string}) => id;
 
 type Props = {
@@ -89,19 +91,25 @@ export const buildContactListScreen = (
       },
       second: {onScroll: onInfoListScroll, onTouchEventStart: onInfoListTouch},
     } = useSyncScrollables(
-      {
-        horizontal: true,
-        itemSize: AVATAR_SIZE,
-        itemSpacing: AVATAR_LIST_SPACING,
-        onScroll: updateAvatarIndex,
-        scrollToOffset: avatarListScrollToOffset,
-      },
-      {
-        horizontal: false,
-        itemSize: infoListHeight,
-        itemSpacing: 0,
-        scrollToOffset: infoListScrollToOffset,
-      },
+      useMemo(
+        () => ({
+          horizontal: true,
+          itemSize: AVATAR_SIZE,
+          itemSpacing: AVATAR_LIST_SPACING,
+          onScroll: updateAvatarIndex,
+          scrollToOffset: avatarListScrollToOffset,
+        }),
+        [avatarListScrollToOffset, updateAvatarIndex],
+      ),
+      useMemo(
+        () => ({
+          horizontal: false,
+          itemSize: infoListHeight,
+          itemSpacing: 0,
+          scrollToOffset: infoListScrollToOffset,
+        }),
+        [infoListHeight, infoListScrollToOffset],
+      ),
     );
 
     const onAvatarPress = useCallback((avatar: AvatarData) => {
@@ -162,6 +170,7 @@ export const buildContactListScreen = (
           data={avatars}
           keyExtractor={extractIdKey}
           renderItem={renderAvatarListItem}
+          scrollEventThrottle={SCROLL_EVENT_THROTTLE}
         />
         <FixedSizeList<InfoData>
           style={styles.infoList}
@@ -176,6 +185,7 @@ export const buildContactListScreen = (
           keyExtractor={extractIdKey}
           renderItem={renderInfoListItem}
           decelerationRate={'fast'}
+          scrollEventThrottle={SCROLL_EVENT_THROTTLE}
         />
       </View>
     );
