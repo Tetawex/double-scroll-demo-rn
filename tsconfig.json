@@ -1,0 +1,17 @@
+{
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": true,      
+    "noEmit": true,   
+    "baseUrl": "./",
+    "paths": {
+      "@assets/*": ["assets/*"],
+      "@components/*": ["src/components/*"],
+      "@screens/*": ["src/screens/*"],
+      "@entity/*": ["src/entity/*"],
+      "@data": ["./src/data/index.ts"],
+      "@navigation": ["./src/navigation/index.ts"],
+      "@theme": ["./src/theme/index.ts"],
+    }
+  }
+}
