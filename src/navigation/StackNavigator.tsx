@@ -77,6 +77,11 @@ export type StackNavigatorProps<TRouteParamMap extends RouteParamMap> = {
   routes: Routes<TRouteParamMap>;
 };
 
+/**
+ * A basic stack navigator. Renders an array (backstack) of screens on top of each other.
+ * Routes define how backstack entries are rendered.
+ * Backstack entries represent the state of a navigator: diplayed screens and their params.
+ */
 export const StackNavigator = <TRouteParamMap extends RouteParamMap>({
   style,
   initialState,
