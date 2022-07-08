@@ -5,9 +5,11 @@ import {act, create, ReactTestRenderer} from 'react-test-renderer';
 import {ColorValue} from 'react-native';
 import {useThemedStyles} from '../themeUtils';
 import {ThemeProvider} from '../ThemeContext';
-import {lightAppTheme} from '../AppTheme';
+import {AppTheme} from '../AppTheme';
 
-const ViewMock = (_: {color: ColorValue}): React.ReactElement => {
+const appThemeMock = {colors: {primary: '#fff'}} as AppTheme;
+
+const ViewMock = (_: {tag: 'view'; color: ColorValue}): React.ReactElement => {
   return <></>;
 };
 
@@ -15,7 +17,7 @@ const ConsumerMock = (): React.ReactElement => {
   const style = useThemedStyles(theme => ({
     testColor: theme.colors.primary as ColorValue,
   }));
-  return <ViewMock color={style.testColor} />;
+  return <ViewMock tag={'view'} color={style.testColor} />;
 };
 
 describe('ThemeContext test', () => {
@@ -23,17 +25,19 @@ describe('ThemeContext test', () => {
     let root: ReactTestRenderer;
     act(() => {
       root = create(
-        <ThemeProvider value={lightAppTheme}>
+        <ThemeProvider value={appThemeMock}>
           <ConsumerMock />
         </ThemeProvider>,
       );
     });
 
     expect(
-      root!.root.findByProps({color: lightAppTheme.colors.primary}).props as {
-        color: ColorValue;
-      },
-    ).toEqual({color: lightAppTheme.colors.primary});
+      (
+        root!.root.findByProps({tag: 'view'}).props as {
+          color: ColorValue;
+        }
+      ).color,
+    ).toEqual(appThemeMock.colors.primary);
   });
   test("Throws an error if there's no ThemeProvider", () => {
     expect(() =>
