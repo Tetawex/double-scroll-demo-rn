@@ -101,6 +101,8 @@ package-lock.json
 # iOS / CocoaPods
 /template/ios/build/
 /template/ios/Pods/
+ios/build/
+ios/Pods/
 /template/ios/Podfile.lock
 /packages/rn-tester/Gemfile.lock
 

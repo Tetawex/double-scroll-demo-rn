@@ -157,11 +157,10 @@ export const buildContactListScreen = (
     const styles = useThemedStyles(styleFn);
 
     return (
-      <SafeAreaView>
         <View style={styles.container}>
           <AppBar
             style={styles.appBar}
-            content={<Text style={styles.appBarText}>Contacts</Text>}
+            title={"Contacts"}
           />
           <FixedSizeList<AvatarData>
             horizontal
@@ -190,7 +189,6 @@ export const buildContactListScreen = (
             renderItem={renderInfoListItem}
           />
         </View>
-      </SafeAreaView>
     );
   };
 };

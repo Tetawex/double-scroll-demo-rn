@@ -48,14 +48,8 @@ export const buildContactDetailsScreen = (
       <View style={styles.container}>
         <AppBar
           style={styles.appBar}
-          content={
-            <>
-              <BackButton style={styles.appBarBack} onPress={goBack} />
-              <Text style={styles.appBarText}>
-                {`${contact.firstName} ${contact.lastName}`}
-              </Text>
-            </>
-          }
+          title={`${contact.firstName} ${contact.lastName}`}
+          onBackPress={goBack}
         />
         <Image style={styles.avatar} source={source} />
         <InfoView info={infoData} />
