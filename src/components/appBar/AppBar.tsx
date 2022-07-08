@@ -45,7 +45,7 @@ const AndroidAppBar = ({
         backgroundColor={styles.statusBar.color}
         barStyle={styles.statusBar.barStyle}
       />
-      {onBackPress && (
+      {!!onBackPress && (
         <BackButton style={styles.backButton} onPress={onBackPress} />
       )}
       <Text style={styles.title}>{title}</Text>
@@ -61,7 +61,7 @@ const IosAppBar = ({style, title, onBackPress}: Props): React.ReactElement => {
       <View style={[styles.container, style]}>
         <View style={styles.horizontalContainer}>
           <View style={styles.leftContainer}>
-            {onBackPress && (
+            {!!onBackPress && (
               <BackButton style={styles.backButton} onPress={onBackPress} />
             )}
           </View>

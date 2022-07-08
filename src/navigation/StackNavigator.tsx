@@ -53,15 +53,11 @@ const _EntryWrapper = <
   TRouteParamMap extends RouteParamMap,
   Entry extends StackEntry<TRouteParamMap>,
 >({
-  style,
   route,
   entry,
   navigate,
   goBack,
 }: {
-  style?:
-    | Animated.AnimatedProps<ViewStyle>
-    | Animated.AnimatedProps<ViewStyle>[];
   route: Route<TRouteParamMap, Entry['name']>;
   entry: Entry;
   navigate: (
@@ -70,15 +66,7 @@ const _EntryWrapper = <
   ) => void;
   goBack: () => void;
 }): React.ReactElement => {
-  const render = useCallback(() => {
-    return route.render(entry.params, navigate, goBack);
-  }, [entry.params, goBack, navigate, route]);
-
-  return (
-    <Animated.View style={[StyleSheet.absoluteFill, style]}>
-      {render()}
-    </Animated.View>
-  );
+  return route.render(entry.params, navigate, goBack);
 };
 
 const EntryWrapper = React.memo(_EntryWrapper) as typeof _EntryWrapper;
@@ -178,8 +166,12 @@ export const StackNavigator = <TRouteParamMap extends RouteParamMap>({
   return (
     <View style={style} onLayout={onLayout}>
       {currentState.map((entry, index) => (
-        <EntryWrapper<TRouteParamMap, StackEntry<TRouteParamMap>>
+        <Animated.View
+          key={[entry.name, routes[entry.name].key?.(entry.params)]
+            .filter(segment => segment !== undefined)
+            .join('_')}
           style={[
+            StyleSheet.absoluteFill,
             {zIndex: index},
             index === currentState.length - 1 && isTransitioning.current
               ? {
@@ -194,15 +186,14 @@ export const StackNavigator = <TRouteParamMap extends RouteParamMap>({
                   ],
                 }
               : {},
-          ]}
-          key={[entry.name, routes[entry.name].key?.(entry.params)]
-            .filter(segment => segment !== undefined)
-            .join('_')}
-          route={routes[entry.name]}
-          entry={entry}
-          navigate={navigate}
-          goBack={goBack}
-        />
+          ]}>
+          <EntryWrapper<TRouteParamMap, StackEntry<TRouteParamMap>>
+            route={routes[entry.name]}
+            entry={entry}
+            navigate={navigate}
+            goBack={goBack}
+          />
+        </Animated.View>
       ))}
     </View>
   );
