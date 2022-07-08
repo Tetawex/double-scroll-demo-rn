@@ -1,14 +1,7 @@
 import React, {useMemo} from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TextStyle,
-  ViewStyle,
-  ImageStyle,
-} from 'react-native';
+import {View, TextStyle, Image, ViewStyle, ImageStyle} from 'react-native';
 import {ContactRepository} from '@data';
-import {AppBar, BackButton} from '@components/appBar';
+import {AppBar} from '@components/appBar';
 import {InfoData, InfoView} from '@components/contact/info';
 import {AppTheme, useThemedStyles} from '@theme';
 
