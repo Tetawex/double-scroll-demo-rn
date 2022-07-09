@@ -1,4 +1,0 @@
-#Fri Jul 08 14:20:35 MSK 2022
-base.0=D\:\\Projects\\ReactProjects\\double-scroll-demo-rn\\android\\app\\build\\intermediates\\dex\\release\\mergeDexRelease\\classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
